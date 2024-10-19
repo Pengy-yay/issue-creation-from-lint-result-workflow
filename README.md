@@ -2,6 +2,7 @@
 
 A simple GitHub workflow that lints changes and creates issues if the lints fails.
 I recommend copying the `.github` file into your new repos to ensure good coding practice.
+It assumes you have the `bug` label for issues.
 
 ## How does it work?
 
