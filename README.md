@@ -1,6 +1,6 @@
 # issue-creation-from-lint-result-workflow
 
-A simple github workflow that lints changes and creates issues if the lints fails.
+A simple GitHub workflow that lints changes and creates issues if the lints fails.
 I recommend copying the `.github` file into your new repos to ensure good coding practice.
 
 ### How does it work?
