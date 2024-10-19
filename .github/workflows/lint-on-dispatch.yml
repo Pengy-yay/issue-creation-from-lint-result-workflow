@@ -1,0 +1,40 @@
+name: Lint-On-Schedule-Or-Dispatch
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 18 * * 0" # Runs every Sunday at 18:00 UTC
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  lint-on-dispatch:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run Super-Linter
+        id: super-linter
+        uses: super-linter/super-linter@v7.1.0
+        env:
+          VALIDATE_ALL_CODEBASE: true
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Append summary to issue file
+        if: failure()
+        run: cat super-linter-output/super-linter-summary.md >> .github/issue-templates/lint-failed-on-push.md
+
+      - name: Create Issue If Lint Failed
+        if: failure()
+        uses: JasonEtco/create-an-issue@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          filename: .github/issue-templates/lint-failed-on-schedule-or-dispatch.md
