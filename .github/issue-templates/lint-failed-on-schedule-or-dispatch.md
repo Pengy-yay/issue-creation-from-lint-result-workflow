@@ -1,6 +1,6 @@
 ---
 title: |
-  [AUTO_LINTER] Lint Failed on dispatch
+  [AUTO_LINTER] Lint Failed on schedule/dispatch
 labels: bug
 ---
 
